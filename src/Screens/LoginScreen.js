@@ -16,7 +16,7 @@ function LoginScreen() {
                 flexDirection="column" 
                 paddingLeft="3" 
                 paddingRight="3">
-            <Box w='full' h='xl' alignItems="center" justifyContent='center'>
+            <Box w='full' h='lg' alignItems="center" justifyContent='center'>
                 <Image alt="CashCare" 
                     size='2xs'
                     w='200'
@@ -38,7 +38,13 @@ function LoginScreen() {
                         paddingLeft="5" 
                         paddingRight="5">
                 
-                <Button marginBottom="3" w="2xs" h="12" bg="red.500" shadow="6"><Text>Continue with Google</Text></Button>
+                <Button _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} marginBottom="3" w="2xs" h="12" bg={Colors.white} borderRadius="10" shadow="6" flexDirection="row">
+                    <Box flex={1} flexDirection="row" alignItems="center" justifyContent="flex-start" >
+                        <Image alt="Google" size="8" source={require("../../assets/google.png")} />
+                        <Text paddingLeft="2" fontSize="lg" color={Colors.gray}>Continue with Google</Text>
+                    </Box>
+                    
+                </Button>
                 <View style={{height: 50,flexDirection: 'row', alignItems: 'center', }}>
                     <View style={{flex: 1, height: 2, backgroundColor: '#4C9992'}} />
                     <View>
