@@ -7,7 +7,7 @@ function Occupation({formData, setFormData}) {
         <Box gap="8">
             <Box>
                 <Text color={Colors.black} fontWeight="500">Job Description:</Text>
-                <Input placeholder="Enter your job description:" variant="filled" rounded="lg" shadow="5" value={formData.jobDesc} 
+                <Input _focus={{bg: "white"}} placeholder="Enter your job description:" variant="filled" rounded="lg" shadow="5" value={formData.jobDesc} 
                     onChangeText={(jobDesc) =>{
                         setFormData({...formData, jobDesc})
                     }}
@@ -16,7 +16,7 @@ function Occupation({formData, setFormData}) {
 
             <Box>
                 <Text color={Colors.black} fontWeight="500">Employment Status:</Text>
-                <Input placeholder="Enter your Employment Status:" variant="filled" rounded="lg" shadow="5" value={formData.employment} 
+                <Input _focus={{bg: "white"}} placeholder="Enter your Employment Status:" variant="filled" rounded="lg" shadow="5" value={formData.employment} 
                     onChangeText={(employment) =>{
                         setFormData({...formData, employment})
                     }}
@@ -25,7 +25,7 @@ function Occupation({formData, setFormData}) {
 
             <Box>
                 <Text color={Colors.black} fontWeight="500">Work Field:</Text>
-                <Input placeholder="Enter your Work Field:" variant="filled" rounded="lg" shadow="5" value={formData.work} 
+                <Input _focus={{bg: "white"}} placeholder="Enter your Work Field:" variant="filled" rounded="lg" shadow="5" value={formData.work} 
                     onChangeText={(work) =>{
                         setFormData({...formData, work})
                     }}
@@ -34,7 +34,7 @@ function Occupation({formData, setFormData}) {
 
             <Box>
                 <Text color={Colors.black} fontWeight="500">Work Hr/s:</Text>
-                <Input placeholder="Enter your Work Hour/s" variant="filled" rounded="lg" shadow="5" value={formData.workHr} 
+                <Input _focus={{bg: "white"}} placeholder="Enter your Work Hour/s" variant="filled" rounded="lg" shadow="5" value={formData.workHr} 
                     onChangeText={(workHr) =>{
                         setFormData({...formData, workHr})
                     }}

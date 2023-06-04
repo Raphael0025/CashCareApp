@@ -17,5 +17,8 @@ const Colors = {
     gray: "#5D5959",
     dark_gray: "#272525",
     secondary_txt: "#A0AEC0",
+    ledgerColor: "#00FFE5",
+    widgetBG: "#473E3E",
+    title_color: "#8BCCC5",
 }
 export default Colors

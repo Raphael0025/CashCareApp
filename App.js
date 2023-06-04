@@ -2,11 +2,13 @@ import {NativeBaseProvider, Box, View, Text} from 'native-base'
 import config from './src/data/Config'
 import LoginScreen from './src/Screens/LoginScreen'
 import RegisterScreen from './src/Screens/RegisterScreen'
+import OnboardingScreen from './src/Screens/OnboardingScreen'
+import HomeScreen from './src/Screens/HomeScreen'
 
 export default function App() {
   return (
     <NativeBaseProvider  config={config}>
-      <RegisterScreen />
+      <HomeScreen />
     </NativeBaseProvider>
   );
 }

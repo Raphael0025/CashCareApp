@@ -18,9 +18,9 @@ function LoginForm() {
             <Text fontSize="md" fontWeight="500" color={Colors.main_light}>Login</Text>
             <Text fontSize="md" fontWeight="700" color={Colors.main_dark}>Please input your credentials.</Text>
             <Text fontWeight="700" color={Colors.white}>Username:</Text>
-            <Input borderRadius="10" variant="filled" size="md" placeholder="Enter your Username" shadow="5" />
+            <Input borderRadius="10" _focus={{bg: "white"}} variant="filled" size="md" placeholder="Enter your Username" shadow="5" />
             <Text fontWeight="600" color={Colors.white}>Password:</Text>
-            <Input shadow="5"  borderRadius="10" bg="white" variant="filled" size="md" type={show ? "text" : "password"} 
+            <Input shadow="5" _focus={{bg: "white"}} borderRadius="10" bg="white" variant="filled" size="md" type={show ? "text" : "password"} 
                 InputRightElement={<Pressable onPress={() => setShow(!show)}>
                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="emerald.600" />
                     </Pressable>} placeholder="Password" />
