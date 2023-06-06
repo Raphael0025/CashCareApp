@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Text} from 'native-base'
+import {Box, Text, Pressable} from 'native-base'
 import Colors from '../data/color';
 import {PieChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";

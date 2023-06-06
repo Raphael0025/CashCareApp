@@ -1,9 +1,13 @@
 import React from 'react'
-import {View} from 'native-base'
+import {Box, Text} from 'native-base'
+import TopHomeBar from '../Components/TopHomeBar'
 
 function ProfileScreen() {
     return (
-        <View>ProfileScreen</View>
+        <Box>
+            <TopHomeBar screenName="Profile" />
+            <Box>Profile</Box>
+        </Box>
     )
 }
 

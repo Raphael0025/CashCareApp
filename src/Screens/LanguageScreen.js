@@ -1,9 +1,18 @@
 import React from 'react'
-import {View} from 'native-base'
+import {Text, Box} from 'native-base'
+import Colors from '../data/color';
+import TopHomeBar from '../Components/TopHomeBar'
+import RadioButton from '../Components/RadioButton'
 
 function LanguageScreen() {
+    const item = {Title: "United States (English)", caption: "Default"}
     return (
-        <View>LanguageScreen</View>
+        <Box flex={1} bg={Colors.dark_gray}>
+            <TopHomeBar screenName={"Language"} />
+            <Box flex={1} padding="3" >
+                <RadioButton item={item} />
+            </Box>
+        </Box>
     )
 }
 

@@ -9,12 +9,11 @@ import PieGraph from '../Components/PieGraph'
 import LineGraph from '../Components/LineGraph'
 import BarGraph from '../Components/BarGraph'
 
-
 function HomeScreen() {
 
     return (
         <Box flex={1} bg={Colors.main_dark}  >
-            <TopHomeBar />
+            <TopHomeBar screenName="Home" />
             <ScrollView nestedScrollEnabled = {true}>
                 <Box flex={1} paddingBottom="62" >
                     <Box flex={1} justifyContent="flex-start" padding="5" >
