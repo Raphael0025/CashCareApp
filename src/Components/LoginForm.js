@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import {StyleSheet} from 'react-native'
 import { MaterialIcons } from "@expo/vector-icons";
 
-function LoginForm() {
+function LoginForm({navigation}) {
     const [show, setShow] = React.useState(false);
     return (
         <Box flex={1} 
@@ -27,7 +27,7 @@ function LoginForm() {
             <Pressable w="full" alignItems="flex-end" _pressed={{opacity: 0.2}}>
                 <Text color="info.500">Forgot Password?</Text>
             </Pressable>
-            <Button w="32" _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} bg={Colors.btnColor} borderRadius="10" shadow="9" >
+            <Button onPress={() => navigation.navigate('DrawerNav')} w="32" _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} bg={Colors.btnColor} borderRadius="10" shadow="9" >
                 <Text fontSize="lg" color={Colors.white}>Login</Text>
             </Button>
             <Box flex={1} flexDirection="row">

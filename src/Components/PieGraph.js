@@ -45,7 +45,7 @@ const chartConfig = {
             color: Colors.main_light,
             legendFontColor: "#7F7F7F",
             legendFontSize: 15
-        }
+        } 
     ];
     return (
         <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingBottom="2" borderRadius="10" w="full" h="xs"  >

@@ -27,7 +27,7 @@ function BarGraph() {
     };
 
     return (
-        <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingTop="2" paddingBottom="2" borderRadius="10" flex={1} >
+        <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingTop="2" paddingBottom="2" borderRadius="10" w="full" h="xs" >
             <Text bold color="white" fontSize="16" paddingBottom="2">Expense Insights</Text>
             <Box paddingTop="2" paddingBottom="2" flexDirection="row" borderTopWidth="1" borderTopColor={Colors.main_dark} >
                 <Text color="#ffffff50" bold fontSize="12" w="full" textAlign="center" textTransform="uppercase" >Monthly Expense Bar Graph</Text>

@@ -3,7 +3,7 @@ import {Box, Image, Text, View, Button} from 'native-base'
 import Colors from '../data/color';
 import LoginForm from '../Components/LoginForm'
 
-function LoginScreen() {
+function LoginScreen({navigation}) {
     return (
         <Box flex={1} bg={{
             linearGradient: {
@@ -52,7 +52,7 @@ function LoginScreen() {
                     </View>
                     <View style={{flex: 1, height: 2, backgroundColor: '#4C9992'}} />
                 </View>
-                <LoginForm />
+                <LoginForm navigation={navigation} />
             </Box>
         </Box>
     )

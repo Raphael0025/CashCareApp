@@ -6,8 +6,9 @@ import OnboardScreen2 from '../Components/OnboardScreen2'
 import OnboardScreen3 from '../Components/OnboardScreen3'
 import OnboardScreen4 from '../Components/OnboardScreen4'
 import { AntDesign } from '@expo/vector-icons';
+import { NavigationHelpersContext } from '@react-navigation/native';
 
-function OnboardingScreen() {
+function OnboardingScreen({navigation}) {
     const colors = ['#BFD834','#72CC50','#019875', '#233A3A']
     const [currentSlide, setCurrentSlide] = React.useState(0);
     const [screen, setScreen] = useState(0);
@@ -39,7 +40,7 @@ function OnboardingScreen() {
                     screen === 3 
                     ? 
                     <Box w="full" paddingTop="5" alignItems="center" justifyContent="center">
-                        <Button bg="gray.600" style={{height: "40%", width: "40%"}} borderRadius="25" _pressed={{opacity: 0.8, backgroundColor: "gray" }} alignItems="center" justifyContent="center">Get Started</Button>
+                        <Button onPress={() => navigation.navigate('Login')} bg="gray.600" style={{height: "40%", width: "40%"}} borderRadius="25" _pressed={{opacity: 0.8, backgroundColor: "gray" }} alignItems="center" justifyContent="center">Get Started</Button>
                     </Box>
                     :
                     <Pressable  _pressed={{opacity: 0.6, color: "red" }} w="full" alignItems="flex-end" paddingRight="12" onPress={() => {

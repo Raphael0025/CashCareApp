@@ -1,9 +1,9 @@
 import React from 'react'
-import {View} from 'native-base'
+import {Box} from 'native-base'
 
 function SettingScreen() {
     return (
-        <View>SettingScreen</View>
+        <Box>SettingScreen</Box>
     )
 }
 
