@@ -1,18 +1,9 @@
 import React from 'react'
-import {Box, Image, Text, Icon, CheckIcon, Input, ScrollView, Fab, Select, Button} from 'native-base'
+import {Box, Image, Text, Icon, Fab} from 'native-base'
 import Colors from '../data/color';
-import TopHomeBar from '../Components/TopHomeBar'
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 function BudgetScreen({navigation}) {
-
-    const [list, setList] = React.useState([
-        {
-            name: "sdf", 
-            title: "afd"
-        },
-        
-    ]);
 
     function ScreenMessage () {
         return( <Box borderBottomWidth="2" borderBottomColor={Colors.main_light} flexDirection="row" padding="3" w="100%" borderRadius="15" bg={Colors.widgetBG}>
@@ -28,11 +19,10 @@ function BudgetScreen({navigation}) {
 
     return (
         <Box flex={1} bg={Colors.dark_gray}  >
-            <TopHomeBar screenName="Records" />
             <Box flex={1} padding="5" >
                 <ScreenMessage />
                 
-                <Fab onPress={() => navigation.navigate('Record')} renderInPortal={false} marginBottom="8" shadow={2} size="md" icon={<Icon color="white" as={AntDesign} name="plus" size="lg" />} />
+                <Fab onPress={() => navigation.navigate('CreateBudget')} renderInPortal={false} marginBottom="8" shadow={2} size="md" icon={<Icon color="white" as={AntDesign} name="plus" size="lg" />} />
             </Box>
         </Box>
     )

@@ -57,7 +57,7 @@ function ExpenseSummary({navigation}) {
                     })}
                 </ScrollView>
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Expense')}>
+                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Record', {screen: 'Expense'})}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

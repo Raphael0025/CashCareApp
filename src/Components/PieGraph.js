@@ -62,7 +62,7 @@ const chartConfig = {
                 backgroundColor={"transparent"}
             />
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable onPress={() => navigation.navigate('Stat')} _pressed={{opacity: 0.2}}>
+                <Pressable onPress={() => navigation.navigate('Stat', {screen: 'Pie'})} _pressed={{opacity: 0.2}}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

@@ -7,13 +7,9 @@ function TopHomeBar({screenName}) {
     return (<>
         <StatusBar bg={Colors.main_light} barStyle="light-content" />
         <Box safeAreaTop bg={Colors.main_dark} />
-        <HStack px="1" py="1" bg={Colors.main_dark} justifyContent="space-between" alignItems="center" w="full" >
+        <HStack px="5" py="5" bg={Colors.main_dark} justifyContent="space-between" alignItems="center" w="full" >
             <HStack alignItems="center">
-                <IconButton onPress={() => {console.log("okB")}} icon={<Icon size="10" as={MaterialIcons} name="menu" color={Colors.main_light} />} />
                 <Text color="white" fontSize="20" fontWeight="bold">{screenName}</Text>
-            </HStack>
-            <HStack>
-                <IconButton onPress={() => {console.log("settings")}} icon={<Icon as={MaterialIcons} name="settings" size="lg" color="white" />} />
             </HStack>
         </HStack>
     </>

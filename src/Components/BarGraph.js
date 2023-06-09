@@ -41,7 +41,7 @@ function BarGraph({navigation}) {
                 verticalLabelRotation={30}
                 />
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable onPress={() => navigation.navigate('Bar')} _pressed={{opacity: 0.2}}>
+                <Pressable onPress={() => navigation.navigate('Stat', {screen: 'Bar'})} _pressed={{opacity: 0.2}}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

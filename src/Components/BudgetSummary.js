@@ -14,14 +14,14 @@ function BudgetSummary({navigation}) {
 
     const [listedData, setListedData] = React.useState([
         {
-            title: "Biscuit",
-            sub: "Food & Groceries",
+            desc: "Biscuit",
+            category: "Food & Groceries",
             date: "06/30/21",
             amount: "10.58"
         },
         {
-            title: "Breakfast",
-            sub: "Food & Groceries",
+            desc: "Breakfast",
+            category: "Food & Groceries",
             date: "06/30/21",
             amount: "30.98"
         },
@@ -31,7 +31,7 @@ function BudgetSummary({navigation}) {
         async function retrieveData() {
             const value = await AsyncStorage.getItem('dataList');
             const data = await JSON.parse(value);
-            setListedData({title: data.title, sub: data.sub, date: data.date, amount: data.amount});
+            setListedData([...listedData, data])
         }
         retrieveData();
     },[]);
@@ -47,8 +47,8 @@ function BudgetSummary({navigation}) {
                     {listedData.map((itm) =>{
                     return <Box w="full" flexDirection="row" borderRadius="15" marginBottom="3" borderWidth="1" padding="2" borderColor={Colors.main_dark} >
                                 <Box flexDirection="column" gap="2" paddingLeft="6" >
-                                    <Text color="white" fontSize="16" fontWeight="700"  >{itm.title}</Text>
-                                    <Text color="#ffffff50" fontSize="12" bold >{itm.sub}</Text>
+                                    <Text color="white" fontSize="16" fontWeight="700"  >{itm.desc}</Text>
+                                    <Text color="#ffffff50" fontSize="12" bold >{itm.category}</Text>
                                     <Text color="#ffffff75"  fontSize="13" bold >{itm.date}</Text>
                                 </Box>
                                 
@@ -59,7 +59,7 @@ function BudgetSummary({navigation}) {
                     })}
                 </ScrollView>
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Budget')}>
+                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Record')}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

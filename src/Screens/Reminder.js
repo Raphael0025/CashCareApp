@@ -4,7 +4,7 @@ import Colors from '../data/color';
 
 function Reminder() {
 
-const [switchToggle, setSwitch] = useState("on")
+const [switchToggle, setSwitch] = React.useState("on")
 
     return (
         <Box bg={Colors.dark_gray} flex={1} px="5" py="5">

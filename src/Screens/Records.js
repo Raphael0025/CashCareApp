@@ -9,7 +9,6 @@ function Records({navigation}) {
 
     return (
         <Box flex={1} bg={Colors.dark_gray}  >
-            <TopHomeBar screenName="Records" />
             <Box flex={1} bg="red.500">
                 <Tabs />
                 <Fab onPress={() => navigation.navigate('CreateBudget')} renderInPortal={false} marginBottom="8" shadow={2} size="md" icon={<Icon color="white" as={AntDesign} name="plus" size="lg" />} />

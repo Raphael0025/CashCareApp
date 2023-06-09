@@ -28,7 +28,6 @@ function ExpenseScreen({navigation}) {
 
     return (
         <Box flex={1} bg={Colors.dark_gray}  >
-            <TopHomeBar screenName="Records" />
             <Box flex={1} padding="5" >
                 <ScreenMessage />
                 

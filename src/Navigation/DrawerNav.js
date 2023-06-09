@@ -12,6 +12,9 @@ import Time_DateSettingsScreen from '../Screens/Time_DateSettingsScreen'
 import AboutScreen from '../Screens/AboutScreen'
 import Reminder from '../Screens/Reminder'
 import Colors from '../data/color'
+import BudgetScreen from '../Screens/BudgetScreen'
+import ExpenseScreen from '../Screens/ExpenseScreen'
+import Records from '../Screens/Records'
 
 const Drawer = createDrawerNavigator();
 
@@ -31,12 +34,16 @@ const getIconName = (screenName) => {
             return "notification-important"//MaterialIcons
         case "Notification":
             return "mark-chat-unread"//MaterialIcons
-        case "Help":
-            return "support-agent"//MaterialIcons
         case "About":
             return "information"//MaterialCommunityIcons
         case "Profile":
             return "user"
+        case "Expense":
+            return "hand-coin"
+        case "Budget":
+            return "piggy-bank"
+        case "Record":
+            return "exchange"
         default:
             return undefined
     }
@@ -47,7 +54,6 @@ const getIcon = (screenName) => {
         case "Home":
         case "Language":
             return <Ionicons name={getIconName(screenName)} />
-        case "Help":
         case "Notification":
         case "Reminders":
         case "Date_and_Time":
@@ -55,8 +61,11 @@ const getIcon = (screenName) => {
             return <MaterialIcons name={getIconName(screenName)} />
         case "About":
         case "Currency":
+        case "Expense":
+        case "Budget":
             return <MaterialCommunityIcons name={getIconName(screenName)} />
         case "Profile":
+        case "Record":
             return <FontAwesome name={getIconName(screenName)} />
     }
 }
@@ -94,6 +103,10 @@ function DrawerNav() {
             <Drawer.Screen name="Profile" component={ProfileScreen} />
 
             <Drawer.Screen name="Home" component={HomeScreen} />
+            <Drawer.Screen name="Budget" component={BudgetScreen} />
+            <Drawer.Screen name="Expense" component={ExpenseScreen} />
+            <Drawer.Screen name="Record" component={Records} />
+            
             <Drawer.Screen name="Currency" component={CurrencyScreen} />
             <Drawer.Screen name="Language" component={LanguageScreen} />
             <Drawer.Screen name="Categories" component={CategoriesScreen} />
@@ -101,7 +114,6 @@ function DrawerNav() {
 
             <Drawer.Screen name="Reminders" component={Reminder} />
             <Drawer.Screen name="Notification" component={HomeScreen} />
-            <Drawer.Screen name="Help" component={HomeScreen} />
             <Drawer.Screen name="About" component={AboutScreen} />
         </Drawer.Navigator>
     </Box>
