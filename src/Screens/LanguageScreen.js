@@ -8,7 +8,6 @@ function LanguageScreen() {
     const item = {Title: "United States (English)", caption: "Default"}
     return (
         <Box flex={1} bg={Colors.dark_gray}>
-            <TopHomeBar screenName={"Language"} />
             <Box flex={1} padding="3" >
                 <RadioButton item={item} />
             </Box>

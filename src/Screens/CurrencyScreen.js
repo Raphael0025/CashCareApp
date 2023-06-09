@@ -8,7 +8,6 @@ function CurrencyScreen() {
     const item = {Title: "Philippine Peso (PHP)", caption: "Default"}
     return (
         <Box flex={1} bg={Colors.dark_gray}>
-            <TopHomeBar screenName={"Currency"} />
             <ScrollView>
                 <Box flex={1} padding="3" >
                     <RadioButton item={item} />

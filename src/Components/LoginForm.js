@@ -32,7 +32,7 @@ function LoginForm({navigation}) {
             </Button>
             <Box flex={1} flexDirection="row">
                 <Text color={Colors.secondary_txt}>Don't have an account?</Text>
-                <Pressable _pressed={{opacity: 0.2}}>
+                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Register')}>
                     <Text color="info.500"> Sign Up</Text>
                 </Pressable>
             </Box>

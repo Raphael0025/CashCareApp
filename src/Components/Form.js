@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, Text, Button} from 'native-base'
+import {Box, ScrollView, Text, Button} from 'native-base'
 import Colors from '../data/color';
 
 import Financial from './Financial'
@@ -7,7 +7,9 @@ import Occupation from './Occupation'
 import Personal from './Personal'
 import Confirm from './Confirm'
 
-function Form() {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+function Form({navigation}) {
 
     const [formData, setFormData] = useState({
         fName: "",
@@ -46,6 +48,26 @@ function Form() {
         }
     }
 
+    const storeData = async () => {
+        try{
+            await AsyncStorage.setItem('user', JSON.stringify(formData))
+            alert("Success")
+        } catch(error){
+            console.log(error)
+        }
+    }
+
+    const getUser = async () => {
+        try{
+            const user = await AsyncStorage.getItem('user')
+            const curr_user = JSON.parse(user)
+            alert(curr_user.amount)
+            
+        } catch(error){
+            console.log(error)
+        }
+    }
+
     return (
         <Box>
             <Box>{ScreenDisplay()}</Box>
@@ -54,7 +76,7 @@ function Form() {
                     setScreen((currScreen) => currScreen - 1)
                 }}><Text color={Colors.main} fontWeight="900" fontSize="lg" >Cancel</Text></Button>
                 <Button _pressed={{opacity: 0.8, backgroundColor: 'gray'}} bg={Colors.main_light} w="32" onPress={() => {
-                    setScreen((currScreen) => currScreen + 1)
+                    { screen != 3 ? setScreen((currScreen) => currScreen + 1) : [storeData(), navigation.navigate('Login')] }
                 }}>
                     {
                         screen != 3 ?  <Text color={Colors.white} fontWeight="900" fontSize="lg" >Next</Text>

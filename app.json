@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "cashcareapp",
+    "name": "Cash Care",
     "slug": "cashcareapp",
+    "privacy": "public",
+    "description": "An application that Tracks your budget",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",

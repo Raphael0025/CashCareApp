@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import {LineChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 
-function LineGraph() {
+function LineGraph({navigation}) {
     const screenWidth = Dimensions.get("window").width;
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -18,7 +18,7 @@ function LineGraph() {
     };
 
     const data = {
-        labels: ["January", "February", "March", "April", "May", "June"],
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         datasets: [
         {
             data: [20, 45, 28, 80, 99, 43],
@@ -44,7 +44,7 @@ function LineGraph() {
                 bezier
                 />
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}}>
+                <Pressable onPress={() => navigation.navigate('Stat')} _pressed={{opacity: 0.2}}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

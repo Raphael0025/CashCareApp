@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import {PieChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 
-function PieGraph() {
+function PieGraph({navigation}) {
 const screenWidth = Dimensions.get("window").width;
 const chartConfig = {
     backgroundGradientFrom: "#1E2923",
@@ -20,28 +20,28 @@ const chartConfig = {
     const data = [
         {
             name: "Food",
-            percent: 258000,
+            percent: 250000,
             color: Colors.main_dark,
             legendFontColor: "#7F7F7F",
             legendFontSize: 15
         },
         {
             name: "Transpo",
-            percent: 258000,
+            percent: 250000,
             color: Colors.main_light,
             legendFontColor: "#7F7F7F",
             legendFontSize: 15
         },
         {
             name: "Misc.",
-            percent: 258000,
+            percent: 250000,
             color: Colors.main_dark,
             legendFontColor: "#7F7F7F",
             legendFontSize: 15
         },
         {
             name: "House",
-            percent: 258000,
+            percent: 250000,
             color: Colors.main_light,
             legendFontColor: "#7F7F7F",
             legendFontSize: 15
@@ -62,7 +62,7 @@ const chartConfig = {
                 backgroundColor={"transparent"}
             />
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}}>
+                <Pressable onPress={() => navigation.navigate('Stat')} _pressed={{opacity: 0.2}}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

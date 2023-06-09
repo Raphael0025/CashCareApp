@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import {BarChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 
-function BarGraph() {
+function BarGraph({navigation}) {
     const screenWidth = Dimensions.get("window").width;
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -41,7 +41,7 @@ function BarGraph() {
                 verticalLabelRotation={30}
                 />
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}}>
+                <Pressable onPress={() => navigation.navigate('Bar')} _pressed={{opacity: 0.2}}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

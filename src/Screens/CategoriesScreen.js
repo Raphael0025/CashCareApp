@@ -7,7 +7,6 @@ import CategoryList from '../Components/CategoryList'
 function CategoriesScreen() {
   return (
     <Box flex={1} bg={Colors.dark_gray}>
-      <TopHomeBar screenName={"Categories"} />
       <Box flex={1} padding="4">
         <Text underline fontSize="lg" bold color={Colors.main}>General</Text>
         <CategoryList />

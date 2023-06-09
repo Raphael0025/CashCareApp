@@ -49,7 +49,6 @@ function CreateExpenseScreen() {
 
     return (
         <Box flex={1} bg={Colors.dark_gray} >
-            <TopHomeBar screenName="Expense" />
             <Box flex={1} padding="5" >
                 <Box gap="16">
                     <Box>

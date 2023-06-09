@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import TopHomeBar from '../Components/TopHomeBar'
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
-function CreateBudgetScreen() {
+function CreateBudgetScreen({navigation}) {
 
     const [list, setList] = React.useState([
         {category: "name"}
@@ -49,7 +49,7 @@ function CreateBudgetScreen() {
 
     return (
         <Box flex={1} bg={Colors.dark_gray} >
-            <TopHomeBar screenName="Budget" />
+            <TopHomeBar screenName="Create Budget" />
             <Box flex={1} padding="5" >
                 <Box gap="16">
                     <Box>
@@ -92,7 +92,7 @@ function CreateBudgetScreen() {
                     </Box>
                 </Box> 
                 <Box marginTop="12" gap="5" flexDirection="row">
-                    <Button w="45%" bg="danger.600">Cancel</Button>
+                    <Button onPress={() => navigation.navigate('Budget')} w="45%" bg="danger.600">Cancel</Button>
                     <Button w="45%" bg="primary.600">Create</Button>
                 </Box>
             </Box>

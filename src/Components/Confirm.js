@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, Text, Button, View} from 'native-base'
 import Colors from '../data/color';
+import {AsynchStorage} from 'react-native'
 
 function Confirm({formData, setFormData}) {
     return (

@@ -5,18 +5,22 @@ import Colors from '../data/color';
 function StepIndicator() {
     const indicator = [
         {
+            key: 1,
             id: "1",
             title: "Personal"
         },
         {
+            key: 2,
             id: "2",
             title: "Occupation"
         },
         {
+            key: 3,
             id: "3",
             title: "Financial"
         },
         {
+            key: 4,
             id: "4",
             title: "Confirm"
         },

@@ -2,7 +2,7 @@ import React from 'react'
 import {Box, Image, Text, View, ScrollView, Pressable} from 'native-base'
 import Colors from '../data/color';
 
-function ExpenseSummary() {
+function ExpenseSummary({navigation}) {
 
     function numFormat (amount){
         const max = {  maximumFractionDigits: 2   } 
@@ -10,7 +10,7 @@ function ExpenseSummary() {
     }
     const ttl = 65.525
 
-    const listedData = [
+    const [listedData, setListedData] = React.useState([
         {
             title: "Biscuit",
             sub: "Food & Groceries",
@@ -23,13 +23,17 @@ function ExpenseSummary() {
             date: "06/30/21",
             amount: "30.98"
         },
-        {
-            title: "Shopping",
-            sub: "Food & Groceries",
-            date: "06/30/21",
-            amount: "180.98"
-        },
-    ]
+    ])
+
+    React.useEffect(async() => {
+        async function retrieveData() {
+            const value = await AsyncStorage.getItem('expenseList');
+            const data = await JSON.parse(value);
+            setListedData({title: data.title, sub: data.sub, date: data.date, amount: data.amount});
+        }
+        retrieveData();
+    },[]);
+
     return (
         <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingTop="2" paddingBottom="2" borderRadius="10" w="full" h="2xs"  >
             <Text bold color="white" fontSize="16" paddingBottom="2">Expense Report</Text>
@@ -53,7 +57,7 @@ function ExpenseSummary() {
                     })}
                 </ScrollView>
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}}>
+                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Expense')}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

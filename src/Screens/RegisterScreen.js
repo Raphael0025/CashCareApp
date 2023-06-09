@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import StepIndicator from '../Components/StepIndicator'
 import Form from '../Components/Form'
 
-function RegisterScreen() {
+function RegisterScreen({navigation}) {
     return (
         <Box flex={1} bg={{
             linearGradient: {
@@ -17,7 +17,7 @@ function RegisterScreen() {
                 <Image size='xs' w='full' h="100" alt="logo" source={require('../../assets/txtlogo.png')}/>
             </Box>
 
-            <ScrollView marginLeft="5" marginRight="5" h="2xl" >
+            <ScrollView vertical marginLeft="5" marginRight="5" h="2xl" >
             
                 <Box flex={1} alignItems="center" justifyContent='flex-start' paddingTop="5" paddingLeft="5" paddingRight="5" gap="2.5"
                     w="full" h="2xl" borderRadius="30" 
@@ -43,8 +43,8 @@ function RegisterScreen() {
                         }}>
                         <StepIndicator />
                     </Box>
-                    <ScrollView>
-                        <Form />
+                    <ScrollView nestedScrollEnabled = {true} vertical h="2xl" >
+                        <Form navigation={navigation}/>
                     </ScrollView>
                 </Box>
             </ScrollView>

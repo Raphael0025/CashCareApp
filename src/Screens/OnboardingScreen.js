@@ -30,7 +30,7 @@ function OnboardingScreen({navigation}) {
     return (
         <Box flex={1} alignItems="center" justifyContent="flex-start" bg={colors[currentSlide]}>
             <Box paddingTop="20" alignItems="flex-end" w="full" >
-                <Pressable  _pressed={{opacity: 0.6, color: "red" }} w="1/4">
+                <Pressable  _pressed={{opacity: 0.6, color: "red" }} w="1/4"  onPress={() => navigation.navigate('Login')}  >
                     <Text fontSize="xl" fontWeight="700" color={Colors.main_dark}>Skip</Text>
                 </Pressable>
             </Box>

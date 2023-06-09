@@ -1,8 +1,10 @@
 import React from 'react'
 import {Box, Image, Text, View, ScrollView, Pressable} from 'native-base'
 import Colors from '../data/color';
+import BudgetScreen from '../Screens/BudgetScreen'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function BudgetSummary() {
+function BudgetSummary({navigation}) {
 
     function numFormat (amount){
         const max = {  maximumFractionDigits: 2   } 
@@ -10,7 +12,7 @@ function BudgetSummary() {
     }
     const ttl = 85.525
 
-    const listedData = [
+    const [listedData, setListedData] = React.useState([
         {
             title: "Biscuit",
             sub: "Food & Groceries",
@@ -23,19 +25,17 @@ function BudgetSummary() {
             date: "06/30/21",
             amount: "30.98"
         },
-        {
-            title: "Shopping",
-            sub: "Food & Groceries",
-            date: "06/30/21",
-            amount: "180.98"
-        },
-        {
-            title: "Jeep",
-            sub: "Transportation",
-            date: "06/30/21",
-            amount: "12"
-        },
-    ]
+    ])
+
+    React.useEffect(async() => {
+        async function retrieveData() {
+            const value = await AsyncStorage.getItem('dataList');
+            const data = await JSON.parse(value);
+            setListedData({title: data.title, sub: data.sub, date: data.date, amount: data.amount});
+        }
+        retrieveData();
+    },[]);
+    
     return (
         <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingTop="2" paddingBottom="2" borderRadius="10" w="full" h="2xs"  >
             <Text bold color="white" fontSize="16" paddingBottom="2">Budget Summary</Text>
@@ -46,7 +46,7 @@ function BudgetSummary() {
                 <ScrollView gap="10" nestedScrollEnabled = {true} vertical>
                     {listedData.map((itm) =>{
                     return <Box w="full" flexDirection="row" borderRadius="15" marginBottom="3" borderWidth="1" padding="2" borderColor={Colors.main_dark} >
-                                    <Box flexDirection="column" gap="2" paddingLeft="6" >
+                                <Box flexDirection="column" gap="2" paddingLeft="6" >
                                     <Text color="white" fontSize="16" fontWeight="700"  >{itm.title}</Text>
                                     <Text color="#ffffff50" fontSize="12" bold >{itm.sub}</Text>
                                     <Text color="#ffffff75"  fontSize="13" bold >{itm.date}</Text>
@@ -59,7 +59,7 @@ function BudgetSummary() {
                     })}
                 </ScrollView>
             <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable _pressed={{opacity: 0.2}}>
+                <Pressable _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('Budget')}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
             </Box>

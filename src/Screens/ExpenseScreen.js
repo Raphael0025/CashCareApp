@@ -4,7 +4,7 @@ import Colors from '../data/color';
 import TopHomeBar from '../Components/TopHomeBar'
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
-function ExpenseScreen() {
+function ExpenseScreen({navigation}) {
 
     const [list, setList] = React.useState([
         {
@@ -13,14 +13,6 @@ function ExpenseScreen() {
         },
         
     ]);
-
-    React.useEffect(() => {
-        if (list.length === 0) {
-            console.log('array is empty');
-        } else {
-            console.log('array is NOT empty');
-        }
-    }, [list]);
 
     function ScreenMessage () {
         return( <Box borderBottomWidth="2" borderBottomColor={Colors.main_light} flexDirection="row" padding="3" w="100%" borderRadius="15" bg={Colors.widgetBG}>
@@ -40,7 +32,7 @@ function ExpenseScreen() {
             <Box flex={1} padding="5" >
                 <ScreenMessage />
                 
-                <Fab renderInPortal={false} marginBottom="8" shadow={2} size="md" icon={<Icon color="white" as={AntDesign} name="plus" size="lg" />} />
+                <Fab onPress={() => navigation.navigate('Record')} renderInPortal={false} marginBottom="8" shadow={2} size="md" icon={<Icon color="white" as={AntDesign} name="plus" size="lg" />} />
             </Box>
         </Box>
     )

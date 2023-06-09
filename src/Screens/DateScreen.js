@@ -8,7 +8,7 @@ function DateScreen() {
     const item = [{key: 1 ,Title: "MM/DD/YYYY", val: "one"}, {key: 2, Title: "DD/MM/YYYY", val: "two"}]
     return (
         <Box flex={1} bg={Colors.dark_gray}>
-            <TopHomeBar screenName={"Date Format"} />
+            <TopHomeBar screenName="Date Format" />
             <Box flex={1} gap="3" padding="3" >
                 <Date_Time_RadioButton item={item} />
             </Box>
