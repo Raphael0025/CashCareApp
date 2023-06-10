@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#233A3A"
-      }
+      },
+      "package": "com.raphael0025.cashcareapp"
     },
     "web": {
       "favicon": "./assets/logo.png"

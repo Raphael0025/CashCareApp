@@ -1,7 +1,6 @@
 import React from 'react'
 import { MaterialCommunityIcons, Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import {Box, Text, Icon, Divider, HStack, VStack, StatusBar, Pressable} from "native-base";
-import { NavigationContainer } from "@react-navigation/native";
 import {createDrawerNavigator, DrawerContentScrollView} from "@react-navigation/drawer";
 import HomeScreen from '../Screens/HomeScreen'
 import ProfileScreen from '../Screens/ProfileScreen'

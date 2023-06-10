@@ -8,15 +8,15 @@ import Personal from './Personal'
 import Confirm from './Confirm'
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+    
 function Form({navigation}) {
-
     const [formData, setFormData] = useState({
         fName: "",
         lName: "",
         gender: "",
         bDay: "",
         contact: "",
+        
         uName: "",
         email: "",
         password: "",
@@ -47,42 +47,32 @@ function Form({navigation}) {
             setScreen(0);
         }
     }
-
-    const storeData = async () => {
-        try{
-            await AsyncStorage.setItem('user', JSON.stringify(formData))
-            alert("Success")
-        } catch(error){
-            console.log(error)
+    
+    const storeArrayToDevice = async () => {
+        try {
+            await AsyncStorage.setItem('user', JSON.stringify(formData));
+            console.log('Array stored successfully.');
+            alert("Successfully Created!")
+            navigation.navigate('Login')
+        } catch (error) {
+            console.log('Error storing array:', error);
         }
-    }
-
-    const getUser = async () => {
-        try{
-            const user = await AsyncStorage.getItem('user')
-            const curr_user = JSON.parse(user)
-            alert(curr_user.amount)
-            
-        } catch(error){
-            console.log(error)
-        }
-    }
+    };
 
     return (
         <Box>
             <Box>{ScreenDisplay()}</Box>
             <Box flex={1} marginTop="5" marginBottom="5" alignItems="center" justifyContent="center" flexDirection="row" gap="2">
+                
                 <Button _pressed={{opacity: 0.8, backgroundColor: 'gray'}} bg={Colors.white} w="32" onPress={() => {
                     setScreen((currScreen) => currScreen - 1)
                 }}><Text color={Colors.main} fontWeight="900" fontSize="lg" >Cancel</Text></Button>
-                <Button _pressed={{opacity: 0.8, backgroundColor: 'gray'}} bg={Colors.main_light} w="32" onPress={() => {
-                    { screen != 3 ? setScreen((currScreen) => currScreen + 1) : [storeData(), navigation.navigate('Login')] }
-                }}>
-                    {
-                        screen != 3 ?  <Text color={Colors.white} fontWeight="900" fontSize="lg" >Next</Text>
-                        : <Text color={Colors.white} fontWeight="900" fontSize="lg" >Save</Text>
-                    }
-                </Button>
+                {
+                    screen != 3 
+                    ? <Button bg={Colors.main_light} w="32" _pressed={{opacity: 0.8, backgroundColor: 'gray'}} onPress={() => {setScreen((currScreen) => currScreen + 1)}}><Text color={Colors.white} fontWeight="900" fontSize="lg" >Next</Text></Button>
+                    : <Button bg={Colors.main_light} w="32" _pressed={{opacity: 0.8, backgroundColor: 'gray'}} onPress={storeArrayToDevice}><Text color={Colors.white} fontWeight="900" fontSize="lg" >Save</Text></Button>
+                }
+
             </Box>
             
         </Box>

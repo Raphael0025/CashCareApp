@@ -1,7 +1,6 @@
 import React from 'react'
-import {Box, Image, Text, View, ScrollView, Button} from 'native-base'
+import {Box, Text, ScrollView} from 'native-base'
 import Colors from '../data/color';
-import TopHomeBar from '../Components/TopHomeBar'
 import Ledger from '../Components/Ledger'
 import BudgetSummary from '../Components/BudgetSummary'
 import ExpenseSummary from '../Components/ExpenseSummary'
@@ -12,20 +11,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function HomeScreen({navigation}) {
     const [amount, setAmount] = React.useState(0)
-    React.useEffect(()=>{
-        const getAmount = async () => {
-            try{
-                const ttl = await AsyncStorage.getItem('user')
-                if(ttl !== null){
-                    const curr_user = JSON.parse(ttl)  
-                    const num = parseInt(curr_user.amount)
-                    setAmount(num)
-                }
-            } catch (error){}
-        }
-        getAmount();
-    },[])
     
+    React.useEffect(() => {
+        const retrieveDataFromDevice = async () => {
+            try {
+                const storedData = await AsyncStorage.getItem('user');
+                if (storedData) {
+                    const parsedData = JSON.parse(storedData);
+                    const specificValue = parsedData.amount; // Access a specific value'
+                    console.log('Retrieved data:', parsedData);
+                    console.log('Specific value:', specificValue);
+                    setAmount(specificValue)
+                } else {
+                    console.log('No data found in AsyncStorage');
+                }
+            } catch (error) {
+                console.log('Error retrieving data:', error);
+            }
+        };
+        retrieveDataFromDevice();
+    }, []);
+
     return (
         <Box flex={1} bg={Colors.main_dark}  >
             <ScrollView nestedScrollEnabled = {true}>

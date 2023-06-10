@@ -4,6 +4,7 @@ import Colors from '../data/color';
 import LoginForm from '../Components/LoginForm'
 
 function LoginScreen({navigation}) {
+    
     return (
         <Box flex={1} bg={{
             linearGradient: {
@@ -37,21 +38,6 @@ function LoginScreen({navigation}) {
                         paddingTop="12"
                         paddingLeft="5" 
                         paddingRight="5">
-                
-                <Button _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} marginBottom="3" w="2xs" h="12" bg={Colors.white} borderRadius="10" shadow="6" flexDirection="row">
-                    <Box flex={1} flexDirection="row" alignItems="center" justifyContent="flex-start" >
-                        <Image alt="Google" size="8" source={require("../../assets/google.png")} />
-                        <Text paddingLeft="2" fontSize="lg" color={Colors.gray}>Continue with Google</Text>
-                    </Box>
-                    
-                </Button>
-                <View style={{height: 50,flexDirection: 'row', alignItems: 'center', }}>
-                    <View style={{flex: 1, height: 2, backgroundColor: '#4C9992'}} />
-                    <View>
-                        <Text style={{width: 50, fontSize:20, color:'#315A5A',textAlign: 'center'}}>or</Text>
-                    </View>
-                    <View style={{flex: 1, height: 2, backgroundColor: '#4C9992'}} />
-                </View>
                 <LoginForm navigation={navigation} />
             </Box>
         </Box>
