@@ -8789,10 +8789,10 @@ react-native-tab-view@^3.5.1, "react-native-tab-view@>= 3.0.0":
   dependencies:
     use-latest-callback "^0.1.5"
 
-react-native-toast@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/react-native-toast/-/react-native-toast-1.0.1.tgz"
-  integrity sha512-ehpE72WexAbLA4RWc/jtosCrpu/soCdS/oHBpzaLnaeNWl7tIxH8Vt7cp2PONP9Lgw/fZBoq87+OKSB4ecCezg==
+react-native-toast-message@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.npmjs.org/react-native-toast-message/-/react-native-toast-message-2.1.6.tgz"
+  integrity sha512-VctXuq20vmRa9AE13acaNZhrLcS3FaBS2zEevS3+vhBsnVZYG0FIlWIis9tVnpnNxUb3ART+BWtwQjzSttXTng==
 
 react-native-web@~0.18.10:
   version "0.18.12"

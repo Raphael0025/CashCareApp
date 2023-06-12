@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { usePermissions, scheduleNotificationAsync, addNotificationReceivedListener} from 'expo-notifications'
-import { ToastAndroid  } from 'react-native'
 import { Box, Button, Input, Text } from 'native-base'
 import Colors from '../data/color'
+import Toast from 'react-native-toast-message';
 
 function Reminder() {
     const [reminderTime, setReminderTime] = useState('');
@@ -29,6 +29,8 @@ function Reminder() {
                 repeats: true, // Set to true if you want the notification to repeat daily at the specified time
             },
         });
+
+        alert("Reminder has been set!")
     };
 
     useEffect(() => {
@@ -40,25 +42,31 @@ function Reminder() {
         };
     }, []);
 
+    const showToastMessage = (message) => {
+        Toast.show({
+            type: 'info',
+            position: 'top',
+            text1: message,
+            visibilityTime: 3000,
+        });
+    };
+
     const handleNotificationReceived = (notification) => {
-        // Handle the received notification
         console.log('Received notification:', notification);
-        // Notify the user or perform any desired action
-        // For example, you can use the 'react-native-toast' package to show a toast message
-        // toast.show('Reminder: Record your daily expenses.');
-        
+    
         // Show a toast message with the notification details
-        ToastAndroid.show('Reminder: Record your daily expenses.', ToastAndroid.LONG);
+        showToastMessage('Reminder: Record your daily expenses.');
     };
     
     return (
         <Box flex={1} bg={Colors.dark_gray} px="5" py="5" gap="3">
             <Text bold fontSize="xl" color={Colors.white}>Enter Reminder Time (HH:MM):</Text>
-            <Input borderRadius="5"  fontSize="md" textAlign="center"
+            <Input borderRadius="5" color={Colors.main_light} fontSize="md" textAlign="center"
                 placeholder="Example: 19:00" value={reminderTime}
                 onChangeText={setReminderTime}
             />
             <Button bg={Colors.main} onPress={handleTimeSet}><Text fontSize="md" textTransform="uppercase" bold color={Colors.white} >Set Reminder</Text></Button> 
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </Box>
     )
 }
