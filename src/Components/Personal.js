@@ -39,9 +39,9 @@ function Personal({formData, setFormData}) {
 
                 <Box mb="3">
                     <Text color={Colors.main_light} fontWeight="600">Birth Date:</Text>
-                    <Input _focus={{bg: "white"}} placeholder="MM/DD/YYYY" variant="filled" rounded="lg" shadow="5" value={formData.bday} 
-                        onChangeText={(bday) =>{
-                            setFormData({...formData, bday})
+                    <Input _focus={{bg: "white"}} placeholder="MM/DD/YYYY" variant="filled" rounded="lg" shadow="5" value={formData.bDay} 
+                        onChangeText={(bDay) =>{
+                            setFormData({...formData, bDay})
                         }}
                     />
                 </Box>

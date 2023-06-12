@@ -36,7 +36,7 @@ function Confirm({formData, setFormData}) {
 
                     <Box flexDirection="row">
                         <Text color="#7A7474" fontWeight={800}>Birth Date:</Text>
-                        <Text> {formData.bday}</Text>
+                        <Text> {formData.bDay}</Text>
                     </Box>
                 </Box>
                 <Box flexDirection="row">

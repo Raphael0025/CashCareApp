@@ -12,11 +12,12 @@ function BarScreen() {
         backgroundGradientFrom: "#1E2923",
         backgroundGradientFromOpacity: 0,
         backgroundGradientTo: "#08130D",
-        backgroundGradientToOpacity: 0.5,
+        backgroundGradientToOpacity: 0.8,
         color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-        strokeWidth: 2, // optional, default 3
+        strokeWidth: 1, // optional, default 3
         barPercentage: 0.5,
         useShadowColorFromDataset: false, // optional
+        formatYLabel: (value) => `₱${value}`,
     };
 
     useEffect(() => {
@@ -41,18 +42,20 @@ function BarScreen() {
         const currentYear = new Date().getFullYear();
         const monthlyExpenses = Array(12).fill(0);
     
-        expenseList.forEach((expense) => {
-            const expenseDate = new Date(expense.date);
-            if (expenseDate.getFullYear() === currentYear) {
-                const monthIndex = expenseDate.getMonth();
-                monthlyExpenses[monthIndex] += expense.amount;
-            }
-        });
-        setExpenseData(monthlyExpenses);
+        if (Array.isArray(expenseList)) { // Check if expenseList is an array
+            expenseList.forEach((expense) => {
+                const expenseDate = new Date(expense.date);
+                if (expenseDate.getFullYear() === currentYear) {
+                    const monthIndex = expenseDate.getMonth();
+                    monthlyExpenses[monthIndex] += expense.amount;
+                }
+            });
+        }
+        setExpenseData(monthlyExpenses);    
     };
 
     const data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
             data: expenseData,
         },],
@@ -69,9 +72,8 @@ function BarScreen() {
                     data={data}
                     width={screenWidth/1.26}
                     height={200}
-                    yAxisLabel="₱"
                     chartConfig={chartConfig}
-                    verticalLabelRotation={30}
+                    verticalLabelRotation={0}
                     />
             </Box>
         </Box>

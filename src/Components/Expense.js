@@ -1,41 +1,49 @@
-import React from 'react';
-import { Box, Text, ScrollView } from 'native-base';
-import Colors from '../data/color';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react'
+import { Box, Text, ScrollView } from 'native-base'
+import Colors from '../data/color'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Expense() {
-    const [expenses, setExpense] = React.useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [newDataAdded, setNewDataAdded] = useState(false); // State variable to track new data
 
-  const getExpense = async () => {
-        try {
-        const keys = await AsyncStorage.getAllKeys();
-        const expenseKeys = keys.filter((key) => key.startsWith('expenseList:'));
-        const expenseData = await AsyncStorage.multiGet(expenseKeys);
-
-        const parsedExpense = expenseData.map(([key, value]) => ({
-            key,
-            expense: JSON.parse(value),
+  const getExpenses = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem('expenseList');
+      if (storedData) {
+        const expenseData = JSON.parse(storedData);
+        const parsedExpenses = Object.entries(expenseData).map(([key, value]) => ({
+          key,
+          ...value,
         }));
+        setExpenses(parsedExpenses);
+      } else {
+        setExpenses([]);
+      }
+    } catch (error) {
+      console.log('Error retrieving expenses:', error);
+    }
+  };
 
-        setExpense(parsedExpense);
-        } catch (error) {
-        console.log('Error retrieving expense:', error);
-        }
-    };
+  useEffect(() => {
+    getExpenses()
+    setNewDataAdded(false) // Reset the flag after rendering new data
+  }, [newDataAdded]) // Trigger useEffect when newDataAdded changes
 
-  React.useEffect(() => {
-    getExpense();
-  }, []);
+  const handleNewBudget = async (newExpenseData) => {
+    try {
+      await AsyncStorage.setItem('expenseList', JSON.stringify(newExpenseData));
+      setNewDataAdded(true); // Set the flag to true to trigger useEffect
+    } catch (error) {
+      console.log('Error adding new expense:', error);
+    }
+  };
 
   const DataHandler = ({ item }) => (
-    <Box
-      w="full"
-      flexDirection="row"
-      borderRadius="15"
-      marginBottom="3"
-      borderWidth="1"
-      padding="2"
-      borderColor={Colors.main_dark}
+    <Box w="full"
+      flexDirection="row" borderRadius="15"
+      marginBottom="3" borderWidth="1"
+      padding="2" borderColor={Colors.main_dark}
     >
       <Box flexDirection="column" gap="2" paddingLeft="6">
         <Text color="white" fontSize="16" fontWeight="700">
@@ -63,8 +71,8 @@ function Expense() {
         <ScrollView flex={1} vertical>
           <Box py="5" px="5">
             {expenses.length > 0 ? (
-                expenses.map(({ key, expense }) => (
-                <DataHandler key={key} item={expense} />
+              expenses.map((expense) => (
+                <DataHandler key={expense.key} item={expense} />
               ))
             ) : (
               <Text color="white" fontSize="16">

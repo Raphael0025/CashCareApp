@@ -15,17 +15,35 @@ function LoginForm({navigation}) {
             setUsername('');
             setPassword('');
         };
-    
         const unsubscribeFocus = navigation.addListener('focus', resetCredentials);
         const unsubscribeBlur = navigation.addListener('blur', resetCredentials);
-    
         return () => {
             unsubscribeFocus();
             unsubscribeBlur();
         };
     }, [navigation]);
 
+    const deleteAllData = async () => {
+        try {
+          const keys = await AsyncStorage.getAllKeys();
+          const keysToDelete = keys.filter(key => key.startsWith('user') || key.startsWith('budget') || key.startsWith('expense'));
+          await AsyncStorage.multiRemove(keysToDelete);
+          console.log('All data deleted successfully.');
+        } catch (error) {
+          console.log('Error deleting data:', error);
+        }
+      };
+      
+      // Call the deleteAllData function to delete all relevant data in AsyncStorage
+
+    const resetFields = () => {
+        setUsername('');
+        setPassword('');
+    };
+
     const handleLogin = async () => {
+        // deleteAllData();
+        // alert('no more')
         try {
           // Retrieve user data from AsyncStorage
             const storedData = await AsyncStorage.getItem('user');
@@ -38,9 +56,11 @@ function LoginForm({navigation}) {
                     navigation.navigate('DrawerNav') // Navigate to the next screen or perform additional actions
                 } else { // Invalid username or password
                     alert('Invalid Username or Password');
+                    resetFields(); // Reset username and password fields
                 }
             } else { // No user data found in AsyncStorage
                 alert('No User Data Found');
+                resetFields(); // Reset username and password fields
             }
         } catch (error) {
             console.log('Error retrieving user data:', error);

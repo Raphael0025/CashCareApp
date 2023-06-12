@@ -1,52 +1,56 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Box, Text, ScrollView } from 'native-base';
 import Colors from '../data/color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Budget() {
-    const [budgets, setBudgets] = React.useState([]);
+  const [budget, setBudget] = useState([]);
+  const [newDataAdded, setNewDataAdded] = useState(false); // State variable to track new data
 
   const getBudgets = async () => {
     try {
-      const keys = await AsyncStorage.getAllKeys();
-
-      const budgetData = await AsyncStorage.multiGet(keys);
-
-      const parsedBudgets = budgetData.map(([key, value]) => ({
-        key,
-        budget: JSON.parse(value),
-      }));
-
-      setBudgets(parsedBudgets);
+      const storedData = await AsyncStorage.getItem('budgetList');
+      if (storedData) {
+        const budgetData = JSON.parse(storedData);
+        const parsedBudgets = Object.entries(budgetData).map(([key, value]) => ({
+          key, ...value,
+        }));
+        setBudget(parsedBudgets);
+      } else {
+        setBudget([])
+      }
     } catch (error) {
       console.log('Error retrieving budgets:', error);
     }
   };
 
-  React.useEffect(() => {
-    getBudgets();
-  }, []);
+  useEffect(() => {
+    getBudgets()
+    setNewDataAdded(false) // Reset the flag after rendering new data
+  }, [newDataAdded]) // Trigger useEffect when newDataAdded changes
+
+  const handleNewBudget = async (newBudgetData) => {
+    try {
+      // Code to handle the addition of a new budget
+      // ...
+      // Once the new budget is added successfully, Set the flag to true to trigger useEffect
+      await AsyncStorage.setItem('budgetList', JSON.stringify(newBudgetData));
+      setNewDataAdded(true); // Set the flag to true to trigger useEffect
+    } catch (error) {
+      console.log('Error adding new budget:', error);
+    }
+  };
 
   const DataHandler = ({ item }) => (
-    <Box
-      w="full"
-      flexDirection="row"
-      borderRadius="15"
-      marginBottom="3"
-      borderWidth="1"
-      padding="2"
+    <Box w="full" flexDirection="row"
+      borderRadius="15" marginBottom="3"
+      borderWidth="1" padding="2"
       borderColor={Colors.main_dark}
     >
       <Box flexDirection="column" gap="2" paddingLeft="6">
-        <Text color="white" fontSize="16" fontWeight="700">
-          {item.desc}
-        </Text>
-        <Text color="white" fontSize="12" bold>
-          {item.category}
-        </Text>
-        <Text color="#ffffff75" fontSize="13" bold>
-          {item.date}
-        </Text>
+        <Text color="white" fontSize="16" fontWeight="700">{item.desc}</Text>
+        <Text color="white" fontSize="12" bold>{item.category}</Text>
+        <Text color="#ffffff75" fontSize="13" bold>{item.date}</Text>
       </Box>
 
       <Box w="60%" alignItems="center" justifyContent="center">
@@ -62,9 +66,9 @@ function Budget() {
       <Box flex={1}>
         <ScrollView flex={1} vertical>
           <Box py="5" px="5">
-            {budgets.length > 0 ? (
-              budgets.map(({ key, budget }) => (
-                <DataHandler key={key} item={budget} />
+            {budget.length > 0 ? (
+              budget.map(( budget ) => (
+                <DataHandler key={budget.key} item={budget} />
               ))
             ) : (
               <Text color="white" fontSize="16">

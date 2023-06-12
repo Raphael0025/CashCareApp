@@ -11,6 +11,7 @@ import Time_DateSettingsScreen from '../Screens/Time_DateSettingsScreen'
 import AboutScreen from '../Screens/AboutScreen'
 import Reminder from '../Screens/Reminder'
 import Colors from '../data/color'
+import StatsScreen from '../Screens/StatsScreen'
 import BudgetScreen from '../Screens/BudgetScreen'
 import ExpenseScreen from '../Screens/ExpenseScreen'
 import Records from '../Screens/Records'
@@ -43,6 +44,8 @@ const getIconName = (screenName) => {
             return "piggy-bank"
         case "Record":
             return "exchange"
+        case "Stats":
+            return "stats-chart"
         default:
             return undefined
     }
@@ -52,6 +55,7 @@ const getIcon = (screenName) => {
     switch(screenName){
         case "Home":
         case "Language":
+        case "Stats":
             return <Ionicons name={getIconName(screenName)} />
         case "Notification":
         case "Reminders":
@@ -104,6 +108,7 @@ function DrawerNav() {
             <Drawer.Screen name="Budget" component={BudgetScreen} />
             <Drawer.Screen name="Expense" component={ExpenseScreen} />
             <Drawer.Screen name="Record" component={Records} />
+            <Drawer.Screen name="Stats" component={StatsScreen} />
             
             <Drawer.Screen name="Currency" component={CurrencyScreen} />
             <Drawer.Screen name="Language" component={LanguageScreen} />
