@@ -1,11 +1,13 @@
-import React from 'react'
-import {Box, Image, Text, View, ScrollView, Pressable} from 'native-base'
-import Colors from '../data/color';
-import {BarChart} from "react-native-chart-kit";
-import { Dimensions } from "react-native";
+import React, { useEffect, useState } from 'react'
+import {Box, Text} from 'native-base'
+import Colors from '../data/color'
+import {BarChart} from "react-native-chart-kit"
+import { Dimensions } from "react-native"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function BarScreen({navigation}) {
+function BarScreen() {
     const screenWidth = Dimensions.get("window").width;
+    const [expenseData, setExpenseData] = useState([]);
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
         backgroundGradientFromOpacity: 0,
@@ -17,13 +19,43 @@ function BarScreen({navigation}) {
         useShadowColorFromDataset: false, // optional
     };
 
-    const data = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-            {
-            data: [20, 45, 28, 80, 99, 43]
+    useEffect(() => {
+        fetchExpenseData();
+    }, []);
+
+    const fetchExpenseData = async () => {
+        try {
+            const expenseList = await AsyncStorage.getItem('expenseList');
+            if (expenseList) {
+                const parsedExpenseList = JSON.parse(expenseList);
+                computeMonthlyExpenses(parsedExpenseList);
+            } else { // No expense data available
+                setExpenseData([0, 0, 0, 0, 0, 0]);
             }
-        ]
+        } catch (error) {
+            console.log('Error retrieving expense data:', error);
+        }
+    };
+
+    const computeMonthlyExpenses = (expenseList) => {
+        const currentYear = new Date().getFullYear();
+        const monthlyExpenses = Array(12).fill(0);
+    
+        expenseList.forEach((expense) => {
+            const expenseDate = new Date(expense.date);
+            if (expenseDate.getFullYear() === currentYear) {
+                const monthIndex = expenseDate.getMonth();
+                monthlyExpenses[monthIndex] += expense.amount;
+            }
+        });
+        setExpenseData(monthlyExpenses);
+    };
+
+    const data = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            data: expenseData,
+        },],
     };
 
     return (
@@ -37,7 +69,7 @@ function BarScreen({navigation}) {
                     data={data}
                     width={screenWidth/1.26}
                     height={200}
-                    yAxisLabel="$"
+                    yAxisLabel="₱"
                     chartConfig={chartConfig}
                     verticalLabelRotation={30}
                     />

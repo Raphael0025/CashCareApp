@@ -1,7 +1,6 @@
 import React from 'react'
 import {Box, Input, Text, Icon, Pressable, Button} from 'native-base'
 import Colors from '../data/color';
-import {StyleSheet} from 'react-native'
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -10,27 +9,38 @@ function LoginForm({navigation}) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+  // Reset username and password fields when leaving the page or navigating to registration
+    React.useEffect(() => {
+        const resetCredentials = () => {
+            setUsername('');
+            setPassword('');
+        };
+    
+        const unsubscribeFocus = navigation.addListener('focus', resetCredentials);
+        const unsubscribeBlur = navigation.addListener('blur', resetCredentials);
+    
+        return () => {
+            unsubscribeFocus();
+            unsubscribeBlur();
+        };
+    }, [navigation]);
+
     const handleLogin = async () => {
         try {
           // Retrieve user data from AsyncStorage
             const storedData = await AsyncStorage.getItem('user');
-            if (storedData) {
-            // Parse the stored user data
+            if (storedData) { // Parse the stored user data
                 const userData = JSON.parse(storedData);
-        
                 // Check if the entered username and password match the stored user data
                 if (username === userData.uName && password === userData.password) {
-                // Login successful
+                    // Login successful
                     alert('Login Successful');
-                    navigation.navigate('DrawerNav')
-                // Navigate to the next screen or perform additional actions
-                } else {
-                // Invalid username or password
+                    navigation.navigate('DrawerNav') // Navigate to the next screen or perform additional actions
+                } else { // Invalid username or password
                     alert('Invalid Username or Password');
                 }
-            } else {
-                // No user data found in AsyncStorage
-                    alert('No User Data Found');
+            } else { // No user data found in AsyncStorage
+                alert('No User Data Found');
             }
         } catch (error) {
             console.log('Error retrieving user data:', error);
@@ -38,8 +48,6 @@ function LoginForm({navigation}) {
         }
     };
 
-
-    
     return (
         <Box flex={1} 
             w="full" 

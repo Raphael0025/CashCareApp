@@ -2,7 +2,7 @@ import React from 'react'
 import {Box, Text} from 'native-base'
 import Colors from '../data/color';
 
-function Ledger(item) {
+export default function Ledger(item) {
 
     function numFormat (amount){
         const max = {  maximumFractionDigits: 2   } 
@@ -47,5 +47,3 @@ function Ledger(item) {
         </Box>
     )
 }
-
-export default Ledger

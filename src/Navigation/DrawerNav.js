@@ -80,7 +80,7 @@ function CustomDrawer(props){
                     <VStack space="3">
                         <Text fontSize="16" mt="1" bold color={Colors.main}>General</Text>
                         {props.state.routeNames.map((name, index) => (
-                            <Pressable px="5" py="3" rounded="md" bg={index===props.state.index ? Colors.main : "#342F2F50"} onPress={(event) => {props.navigation.navigate(name)}} > 
+                            <Pressable key={name} px="5" py="3" rounded="md" bg={index===props.state.index ? Colors.main : "#342F2F50"} onPress={(event) => {props.navigation.navigate(name)}} > 
                                 <HStack space="7" alignItems="center">
                                     <Icon color={index===props.state.index ? Colors.main_light : Colors.gray} size="6" as={getIcon(name)} />
                                     <Text fontWeight="500" color={index===props.state.index ? Colors.secondary_txt : Colors.gray}>{name}</Text>
@@ -88,7 +88,6 @@ function CustomDrawer(props){
                             </Pressable>
                         ))}
                     </VStack>
-                    
                 </VStack>
             </VStack>
         </DrawerContentScrollView>

@@ -51,22 +51,24 @@ function Form({navigation}) {
     const storeArrayToDevice = async () => {
         try {
             await AsyncStorage.setItem('user', JSON.stringify(formData));
-            console.log('Array stored successfully.');
-            alert("Successfully Created!")
+            console.log(formData);
+            alert("User Successfully Created!")
             navigation.navigate('Login')
         } catch (error) {
             console.log('Error storing array:', error);
         }
     };
 
+    const handleCancel = () => {
+        screen != 0 ? setScreen((currScreen) => currScreen - 1) :  navigation.navigate('Login')
+    }
+
     return (
         <Box>
             <Box>{ScreenDisplay()}</Box>
             <Box flex={1} marginTop="5" marginBottom="5" alignItems="center" justifyContent="center" flexDirection="row" gap="2">
                 
-                <Button _pressed={{opacity: 0.8, backgroundColor: 'gray'}} bg={Colors.white} w="32" onPress={() => {
-                    setScreen((currScreen) => currScreen - 1)
-                }}><Text color={Colors.main} fontWeight="900" fontSize="lg" >Cancel</Text></Button>
+                <Button _pressed={{opacity: 0.8, backgroundColor: 'gray'}} bg={Colors.white} w="32" onPress={handleCancel}><Text color={Colors.main} fontWeight="900" fontSize="lg" >Cancel</Text></Button>
                 {
                     screen != 3 
                     ? <Button bg={Colors.main_light} w="32" _pressed={{opacity: 0.8, backgroundColor: 'gray'}} onPress={() => {setScreen((currScreen) => currScreen + 1)}}><Text color={Colors.white} fontWeight="900" fontSize="lg" >Next</Text></Button>
