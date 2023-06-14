@@ -25,7 +25,28 @@ const [budgetData, setBudgetData] = useState([
     { name: 'Week 4', percent: 0, color: Colors.main_light, legendFontColor: '#7F7F7F', legendFontSize: 15 },
   ]);
   
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  const fetchData = async () => {
+    try {
+      const budgetList = await AsyncStorage.getItem('budgetList');
+      if (budgetList) {
+        const budgets = JSON.parse(budgetList);
+        const totalBudget = budgets.reduce((total, budget) => total + budget.amount, 0);
+        const budgetPerWeek = totalBudget / 4;
+        const updatedBudgetData = budgetData.map((budget, index) => ({
+          ...budget,
+          percent: budgetPerWeek,
+          name: `Week ${index + 1}`,
+        }));
+        setBudgetData(updatedBudgetData);
+      }
+    } catch (error) {
+      console.error('Error fetching budget data:', error);
+    }
+  };
     return (
         <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingBottom="2" borderRadius="10" w="full" h="xs"  >
             <Text bold color="white" fontSize="16" paddingBottom="2">Budget Overview</Text>
