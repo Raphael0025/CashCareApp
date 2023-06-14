@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Text, Icon, CheckIcon, Input, ScrollView, Select, Pressable, Button} from 'native-base'
 import Colors from '../data/color';
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from '@react-navigation/native';
 
@@ -112,9 +112,7 @@ export default function ProfileScreen() {
                     <Box justifyContent="center" alignItems="center" w="100%" h="15%" marginTop="5" >
                         <Box alignItems="flex-end" w="full" px="5">
                         <Pressable onPress={handleLogout}>
-                            <Text fontSize="20" fontWeight="bold" color="red">
-                            Logout
-                            </Text>
+                            <Icon as={MaterialCommunityIcons} name="logout" size="8" color={Colors.main_dark} />
                         </Pressable>
                         </Box>
                         <Box borderRadius="100" bg="#5A6A7025" w="150" h="150" justifyContent="center" alignItems="center">
