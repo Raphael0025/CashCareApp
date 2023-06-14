@@ -43,9 +43,9 @@ function HomeScreen({navigation}) {
                     <Box flex={1} alignItems="flex-start" gap="10" padding="5" paddingTop="0" >
                         <BudgetSummary navigation={navigation} />
                         <ExpenseSummary navigation={navigation} />
-                        <PieGraph navigation={navigation} />
-                        <LineGraph navigation={navigation} />
-                        <BarGraph navigation={navigation} /> 
+                         <PieGraph  />
+                        {/*<LineGraph />*/}
+                        <BarGraph  />  
                     </Box>
                 </Box>
             </ScrollView>

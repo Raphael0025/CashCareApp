@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Image, Text, View, Button} from 'native-base'
+import {Box, Image} from 'native-base'
 import Colors from '../data/color';
 import LoginForm from '../Components/LoginForm'
 

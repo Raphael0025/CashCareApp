@@ -4,10 +4,28 @@ import Colors from '../data/color';
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+async function fetchUserCredentials() {
+    try {
+        const storedData = await AsyncStorage.getItem('user');
+        if (storedData) {
+            const userData = JSON.parse(storedData);
+            globalUsername = userData.uName; // Store the username in the global variable
+            globalPass = userData.password; // Store the username in the global variable
+            console.log(globalUserName + " " + globalPass)
+        }
+    } catch (error) {
+        console.log('Error retrieving user data:', error);
+    }
+}
+
 function LoginForm({navigation}) {
     const [show, setShow] = React.useState(false);
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+
+    React.useEffect(() => {
+        fetchUserCredentials();
+    }, []);
 
   // Reset username and password fields when leaving the page or navigating to registration
     React.useEffect(() => {
@@ -23,27 +41,12 @@ function LoginForm({navigation}) {
         };
     }, [navigation]);
 
-    const deleteAllData = async () => {
-        try {
-          const keys = await AsyncStorage.getAllKeys();
-          const keysToDelete = keys.filter(key => key.startsWith('user') || key.startsWith('budget') || key.startsWith('expense'));
-          await AsyncStorage.multiRemove(keysToDelete);
-          console.log('All data deleted successfully.');
-        } catch (error) {
-          console.log('Error deleting data:', error);
-        }
-      };
-      
-      // Call the deleteAllData function to delete all relevant data in AsyncStorage
-
     const resetFields = () => {
         setUsername('');
         setPassword('');
     };
 
     const handleLogin = async () => {
-        // deleteAllData();
-        // alert('no more')
         try {
           // Retrieve user data from AsyncStorage
             const storedData = await AsyncStorage.getItem('user');
@@ -57,6 +60,7 @@ function LoginForm({navigation}) {
                 } else { // Invalid username or password
                     alert('Invalid Username or Password');
                     resetFields(); // Reset username and password fields
+                    
                 }
             } else { // No user data found in AsyncStorage
                 alert('No User Data Found');
@@ -86,7 +90,8 @@ function LoginForm({navigation}) {
                 InputRightElement={<Pressable onPress={() => setShow(!show)}>
                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="emerald.600" />
                     </Pressable>} placeholder="Password" />
-            <Pressable w="full" alignItems="flex-end" _pressed={{opacity: 0.2}}>
+            <Pressable w="full" alignItems="flex-end" _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('ForgotPassword')}
+            >
                 <Text color="info.500">Forgot Password?</Text>
             </Pressable>
             <Button onPress={handleLogin} w="32" _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} bg={Colors.btnColor} borderRadius="10" shadow="9" >

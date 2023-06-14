@@ -10,9 +10,9 @@ const Tab = createMaterialTopTabNavigator();
 export default function TopTabNav() {
     return (
         <Tab.Navigator screenOptions={{tabBarActiveTintColor:'white', tabBarIndicatorStyle: { backgroundColor: 'white', height: 2 },tabBarStyle: {backgroundColor: "#52A099"}}}>
-            <Tab.Screen name="Line" component={LineScreen} />
+            {/* <Tab.Screen name="Line" component={LineScreen} />
             <Tab.Screen  name="Bar" component={BarScreen} />
-            <Tab.Screen  name="Pie" component={PieScreen} />
+            <Tab.Screen  name="Pie" component={PieScreen} /> */}
         </Tab.Navigator>
     );
 }

@@ -17,8 +17,8 @@ import CreateExpenseScreen from './src/Screens/CreateExpenseScreen'
 import Records from './src/Screens/Records'
 import { createStackNavigator } from '@react-navigation/stack'
 import DrawerNav from './src/Navigation/DrawerNav'
-import BudgetSummary from './src/Components/BudgetSummary'
 import TopTabNav from './src/Navigation/TopTabNav'
+import ForgotPassword from './src/Screens/ForgotPasswordScreen'
 
 const Stack = createStackNavigator();
 
@@ -32,6 +32,7 @@ export default function App() {
         }}>
           <Stack.Screen name="OnBoard" component={OnboardingScreen} />
           <Stack.Screen name="Login" component={LoginScreen} /> 
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Register" component={RegisterScreen} /> 
           <Stack.Screen name="Record" component={Records} />
           <Stack.Screen name="Home" component={HomeScreen} />

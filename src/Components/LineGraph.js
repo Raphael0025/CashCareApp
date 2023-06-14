@@ -1,33 +1,64 @@
-import React from 'react'
-import {Box, Image, Text, View, ScrollView, Pressable} from 'native-base'
+import React, {useState, useEffect} from 'react'
+import {Box, Text, Pressable} from 'native-base'
 import Colors from '../data/color';
 import {LineChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function LineGraph({navigation}) {
+function LineGraph() {
     const screenWidth = Dimensions.get("window").width;
     const chartConfig = {
-        backgroundGradientFrom: "#1E2923",
+        backgroundGradientFrom: '#1E2923',
         backgroundGradientFromOpacity: 0,
-        backgroundGradientTo: "#08130D",
+        backgroundGradientTo: '#08130D',
         backgroundGradientToOpacity: 0.5,
         color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-        strokeWidth: 2, // optional, default 3
-        barPercentage: 0.5,
-        useShadowColorFromDataset: false, // optional
+        strokeWidth: 2,
+      };
+
+    const [expenseData, setExpenseData] = useState([]);
+
+    useEffect(() => {
+      fetchExpenseData();
+    }, []);
+
+    const fetchExpenseData = async () => {
+        try {
+          const expenseList = await AsyncStorage.getItem('expenseList');
+          if (expenseList) {
+            const parsedExpenseList = JSON.parse(expenseList);
+            const weeklyExpenses = computeWeeklyExpenses(parsedExpenseList);
+            setExpenseData(weeklyExpenses);
+          } else {
+            setExpenseData([]);
+          }
+        } catch (error) {
+          console.log('Error retrieving expense data:', error);
+        }
     };
 
-    const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-        datasets: [
-        {
-            data: [20, 45, 28, 80, 99, 43],
-            color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-            strokeWidth: 2 // optional
+    const computeWeeklyExpenses = (expenseList) => {
+        const weeklyExpenses = Array(4).fill(0); // Assuming there are 4 weeks in a month
+        if (Array.isArray(expenseList)) {
+          expenseList.forEach((expense) => {
+            const weekIndex = expense.week - 1; // Assuming expense.week represents the week number
+            weeklyExpenses[weekIndex] += expense.amount;
+          });
         }
-        ],
-        legend: ["Period"] // optional
+        return weeklyExpenses;
       };
+
+    const data = {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [
+            {
+                data: expenseData,
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+                strokeWidth: 2,
+            },
+        ], 
+        legend: ['Weekly Expense'],
+    };
 
     return (
         <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingTop="2" paddingBottom="2" borderRadius="10" w="full"   >
@@ -37,17 +68,17 @@ function LineGraph({navigation}) {
             </Box>
             <LineChart
                 data={data}
-                width={screenWidth/1.25}
+                width={screenWidth / 1.25}
                 height={250}
                 verticalLabelRotation={30}
                 chartConfig={chartConfig}
                 bezier
-                />
-            <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable onPress={() => navigation.navigate('Stat', {screen: 'Line'})} _pressed={{opacity: 0.2}}>
+            />
+            {/* <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
+                <Pressable onPress={() => navigation.navigate('DrawerNav', {screen: 'Stats', params: { screen: 'Line' },})} _pressed={{opacity: 0.2}}>
                     <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
                 </Pressable>
-            </Box>
+            </Box> */}
         </Box>
     )
 }
