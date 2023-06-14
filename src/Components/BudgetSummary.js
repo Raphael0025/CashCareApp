@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function BudgetSummary({navigation}) {
     const [remainingBudget, setRemainingBudget] = useState(0);
     const [budget, setBudget] = useState([]);
+    const [newDataAdded, setNewDataAdded] = useState(false); // State variable to track new data
 
     function numFormat (amount){
         const max = {  maximumFractionDigits: 2   } 
@@ -39,8 +40,21 @@ function BudgetSummary({navigation}) {
   };
     
   React.useEffect(() => {
-    getBudgets();
-  }, []);
+    getBudgets()
+    setNewDataAdded(false) // Reset the flag after rendering new data
+  }, [newDataAdded])
+
+  const handleNewBudget = async (newBudgetData) => {
+    try {
+      // Code to handle the addition of a new budget
+      // ...
+      // Once the new budget is added successfully, Set the flag to true to trigger useEffect
+      await AsyncStorage.setItem('budgetList', JSON.stringify(newBudgetData));
+      setNewDataAdded(true); // Set the flag to true to trigger useEffect
+    } catch (error) {
+      console.log('Error adding new budget:', error);
+    }
+  };
 
   const DataHandler = ({ item }) => (
     <Box w="full" flexDirection="row"

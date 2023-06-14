@@ -43,8 +43,7 @@ function HomeScreen({navigation}) {
                     <Box flex={1} alignItems="flex-start" gap="10" padding="5" paddingTop="0" >
                         <BudgetSummary navigation={navigation} />
                         <ExpenseSummary navigation={navigation} />
-                         <PieGraph  />
-                        {/*<LineGraph />*/}
+                        <PieGraph  />
                         <BarGraph  />  
                     </Box>
                 </Box>

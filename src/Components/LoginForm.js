@@ -4,19 +4,57 @@ import Colors from '../data/color';
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-async function fetchUserCredentials() {
+var globalUsername = ''; // Global variable to store the username
+var globalPass = ''; // Global variable to store the username
+
+async function fetchUserCredentials(navigation) {
     try {
         const storedData = await AsyncStorage.getItem('user');
+        const storedOnline = await AsyncStorage.getItem('isOnline');
         if (storedData) {
             const userData = JSON.parse(storedData);
             globalUsername = userData.uName; // Store the username in the global variable
             globalPass = userData.password; // Store the username in the global variable
-            console.log(globalUserName + " " + globalPass)
+            if (globalUsername && globalPass) {
+                // Auto-login with the stored credentials
+                if (storedOnline === "true") { // Check if user is not logged out
+                    // Auto-login with the stored credentials
+                    handleLogin(globalUsername, globalPass, navigation);
+                }
+            }
         }
     } catch (error) {
         console.log('Error retrieving user data:', error);
     }
 }
+
+const handleLogin = async (username, password, navigation) => {
+    try {
+      // Retrieve user data from AsyncStorage
+        const storedData = await AsyncStorage.getItem('user');
+        const storedOnline = await AsyncStorage.getItem('isOnline');
+        if (storedData) { // Parse the stored user data
+            const userData = JSON.parse(storedData);
+            // Check if the entered username and password match the stored user data
+            if (username === userData.uName && password === userData.password) {
+                // Login successful
+                alert('Login Successful');
+                navigation.navigate('DrawerNav') 
+                
+            } else { // Invalid username or password
+                alert('Invalid Username or Password');
+                resetFields(); // Reset username and password fields
+                
+            }
+        } else { // No user data found in AsyncStorage
+            alert('No User Data Found');
+            resetFields(); // Reset username and password fields
+        }
+    } catch (error) {
+        console.log('Error retrieving user data:', error);
+        alert('An error occurred');
+    }
+};
 
 function LoginForm({navigation}) {
     const [show, setShow] = React.useState(false);
@@ -24,8 +62,8 @@ function LoginForm({navigation}) {
     const [password, setPassword] = React.useState('');
 
     React.useEffect(() => {
-        fetchUserCredentials();
-    }, []);
+        fetchUserCredentials(navigation);
+    }, [navigation]);
 
   // Reset username and password fields when leaving the page or navigating to registration
     React.useEffect(() => {
@@ -41,35 +79,10 @@ function LoginForm({navigation}) {
         };
     }, [navigation]);
 
+
     const resetFields = () => {
         setUsername('');
         setPassword('');
-    };
-
-    const handleLogin = async () => {
-        try {
-          // Retrieve user data from AsyncStorage
-            const storedData = await AsyncStorage.getItem('user');
-            if (storedData) { // Parse the stored user data
-                const userData = JSON.parse(storedData);
-                // Check if the entered username and password match the stored user data
-                if (username === userData.uName && password === userData.password) {
-                    // Login successful
-                    alert('Login Successful');
-                    navigation.navigate('DrawerNav') // Navigate to the next screen or perform additional actions
-                } else { // Invalid username or password
-                    alert('Invalid Username or Password');
-                    resetFields(); // Reset username and password fields
-                    
-                }
-            } else { // No user data found in AsyncStorage
-                alert('No User Data Found');
-                resetFields(); // Reset username and password fields
-            }
-        } catch (error) {
-            console.log('Error retrieving user data:', error);
-            alert('An error occurred');
-        }
     };
 
     return (
@@ -90,11 +103,15 @@ function LoginForm({navigation}) {
                 InputRightElement={<Pressable onPress={() => setShow(!show)}>
                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="emerald.600" />
                     </Pressable>} placeholder="Password" />
-            <Pressable w="full" alignItems="flex-end" _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('ForgotPassword')}
+            <Pressable w="full" alignItems="flex-end" _pressed={{opacity: 0.2}} onPress={() => navigation.navigate('ForgotPassword', {
+                username: globalUsername, // Pass the globalUsername variable as a parameter
+                password: globalPass, // Pass the globalPassword variable as a parameter
+                })
+            }
             >
                 <Text color="info.500">Forgot Password?</Text>
             </Pressable>
-            <Button onPress={handleLogin} w="32" _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} bg={Colors.btnColor} borderRadius="10" shadow="9" >
+            <Button onPress={() => handleLogin(username, password, navigation)} w="32" _pressed={{backgroundColor: "Colors.gray", opacity: 0.6}} bg={Colors.btnColor} borderRadius="10" shadow="9" >
                 <Text fontSize="lg" color={Colors.white}>Login</Text>
             </Button>
             <Box flex={1} flexDirection="row">

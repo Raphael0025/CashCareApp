@@ -11,10 +11,11 @@ import Time_DateSettingsScreen from '../Screens/Time_DateSettingsScreen'
 import AboutScreen from '../Screens/AboutScreen'
 import Reminder from '../Screens/Reminder'
 import Colors from '../data/color'
-import StatsScreen from '../Screens/StatsScreen'
 import BudgetScreen from '../Screens/BudgetScreen'
 import ExpenseScreen from '../Screens/ExpenseScreen'
 import Records from '../Screens/Records'
+
+import { useNavigation } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
@@ -44,8 +45,6 @@ const getIconName = (screenName) => {
             return "piggy-bank"
         case "Record":
             return "exchange"
-        case "Stats":
-            return "stats-chart"
         default:
             return undefined
     }
@@ -55,7 +54,6 @@ const getIcon = (screenName) => {
     switch(screenName){
         case "Home":
         case "Language":
-        case "Stats":
             return <Ionicons name={getIconName(screenName)} />
         case "Notification":
         case "Reminders":
@@ -108,7 +106,6 @@ function DrawerNav() {
             <Drawer.Screen name="Budget" component={BudgetScreen} />
             <Drawer.Screen name="Expense" component={ExpenseScreen} />
             <Drawer.Screen name="Record" component={Records} />
-            <Drawer.Screen name="Stats" component={StatsScreen} />
             
             <Drawer.Screen name="Currency" component={CurrencyScreen} />
             <Drawer.Screen name="Language" component={LanguageScreen} />
@@ -118,9 +115,34 @@ function DrawerNav() {
             <Drawer.Screen name="Reminders" component={Reminder} />
             <Drawer.Screen name="Notification" component={HomeScreen} />
             <Drawer.Screen name="About" component={AboutScreen} />
+            <Drawer.Screen
+                name="Logout"
+                component={Logout}
+                options={{ headerShown: false }}
+                />
         </Drawer.Navigator>
     </Box>
     );
+}
+
+export function Logout(){
+    const navigation = useNavigation();
+    const handleLogout = () => {
+        // Reset navigation and navigate to the login screen
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
+    return (
+        <Box flex={1} alignItems="center" justifyContent="center">
+          <Pressable onPress={handleLogout}>
+            <Text fontSize="20" fontWeight="bold" color="red">
+              Logout
+            </Text>
+          </Pressable>
+        </Box>
+      );
 }
 
 export default DrawerNav

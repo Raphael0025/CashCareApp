@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Box, Text, Icon, CheckIcon, Input, ScrollView, Select, Button} from 'native-base'
+import {Box, Text, Icon, CheckIcon, Input, ScrollView, Select, Pressable, Button} from 'native-base'
 import Colors from '../data/color';
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -72,6 +72,19 @@ export default function ProfileScreen() {
         }
     };
 
+    const handleLogout = async () => {
+        // Reset navigation and navigate to the login screen
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+        try {
+            await AsyncStorage.setItem('isOnline', "false");
+        } catch (error) {
+            console.log('Error storing activity:', error);
+        }
+    };
+
     const deleteUser = async () => {
         try {
             // Delete user data from AsyncStorage
@@ -97,6 +110,13 @@ export default function ProfileScreen() {
                 {data && ( // Add conditional check for data existence
                 <>
                     <Box justifyContent="center" alignItems="center" w="100%" h="15%" marginTop="5" >
+                        <Box alignItems="flex-end" w="full" px="5">
+                        <Pressable onPress={handleLogout}>
+                            <Text fontSize="20" fontWeight="bold" color="red">
+                            Logout
+                            </Text>
+                        </Pressable>
+                        </Box>
                         <Box borderRadius="100" bg="#5A6A7025" w="150" h="150" justifyContent="center" alignItems="center">
                             <Icon as={MaterialIcons} name="perm-identity" size="70" color={Colors.main_dark} />
                         </Box>

@@ -6,6 +6,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function Budget() {
   const [budget, setBudget] = useState([]);
   const [newDataAdded, setNewDataAdded] = useState(false); // State variable to track new data
+  const [remainingBudget, setRemainingBudget] = useState(0);
+
+  function numFormat (amount){
+    const max = {  maximumFractionDigits: 2   } 
+    return Intl.NumberFormat("en-US", max).format(amount)
+  }
 
   const getBudgets = async () => {
     try {
@@ -15,9 +21,18 @@ function Budget() {
         const parsedBudgets = Object.entries(budgetData).map(([key, value]) => ({
           key, ...value,
         }));
+        let remainingBudget = 0;
+        parsedBudgets.forEach((budget) => {
+          if (budget.amount && !isNaN(budget.amount)) {
+            remainingBudget += Number(budget.amount);
+          }
+        });
+
         setBudget(parsedBudgets);
+        setRemainingBudget(remainingBudget);
       } else {
         setBudget([])
+        setRemainingBudget(0);
       }
     } catch (error) {
       console.log('Error retrieving budgets:', error);
@@ -77,6 +92,16 @@ function Budget() {
             )}
           </Box>
         </ScrollView>
+        <Box p="5" w="full" alignItems="center">
+          <Box flexDirection="row" bg={Colors.main_dark} w="full" justifyContent="space-evenly" borderRadius="10" px="8">
+            <Box w="50%" >
+              <Text py="3" bold fontSize="md" color={Colors.main_light}>Total Budget:</Text>
+            </Box>
+            <Box w="50%" alignItems="flex-end">
+              <Text py="3" bold color={Colors.main_light} fontSize="md">Php {numFormat(remainingBudget)}</Text>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

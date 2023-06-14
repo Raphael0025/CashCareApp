@@ -6,19 +6,33 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 function Expense() {
   const [expenses, setExpenses] = useState([]);
   const [newDataAdded, setNewDataAdded] = useState(false); // State variable to track new data
+  const [remainingExpense, setRemainingExpenses] = useState(0);
+  
+  function numFormat (amount){
+    const max = {  maximumFractionDigits: 2   } 
+    return Intl.NumberFormat("en-US", max).format(amount)
+  }
 
   const getExpenses = async () => {
     try {
       const storedData = await AsyncStorage.getItem('expenseList');
       if (storedData) {
         const expenseData = JSON.parse(storedData);
-        const parsedExpenses = Object.entries(expenseData).map(([key, value]) => ({
-          key,
-          ...value,
+        const parsedExpense = Object.entries(expenseData).map(([key, value]) => ({
+          key, ...value,
         }));
-        setExpenses(parsedExpenses);
+        let remainingExpense = 0;
+        parsedExpense.forEach((expenses) => {
+          if (expenses.amount && !isNaN(expenses.amount)) {
+            remainingExpense += Number(expenses.amount);
+          }
+        });
+
+        setExpenses(parsedExpense);
+        setRemainingExpenses(remainingExpense);
       } else {
-        setExpenses([]);
+        setExpenses([])
+        setRemainingExpenses(0);
       }
     } catch (error) {
       console.log('Error retrieving expenses:', error);
@@ -81,6 +95,16 @@ function Expense() {
             )}
           </Box>
         </ScrollView>
+        <Box p="5" w="full" alignItems="center">
+          <Box flexDirection="row" bg={Colors.main_dark} w="full" justifyContent="space-evenly" borderRadius="10" px="8">
+            <Box w="50%" >
+              <Text py="3" bold fontSize="md" color={Colors.main_light}>Total Budget:</Text>
+            </Box>
+            <Box w="50%" alignItems="flex-end">
+              <Text py="3" bold color={Colors.main_light} fontSize="md">Php {numFormat(remainingExpense)}</Text>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
