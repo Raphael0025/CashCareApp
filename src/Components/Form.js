@@ -72,7 +72,7 @@ function Form({navigation}) {
                 {
                     screen != 3 
                     ? <Button bg={Colors.main_light} w="32" _pressed={{opacity: 0.8, backgroundColor: 'gray'}} onPress={() => {setScreen((currScreen) => currScreen + 1)}}><Text color={Colors.white} fontWeight="900" fontSize="lg" >Next</Text></Button>
-                    : <Button bg={Colors.main_light} w="32" _pressed={{opacity: 0.8, backgroundColor: 'gray'}} onPress={[storeArrayToDevice, storeOnline]}><Text color={Colors.white} fontWeight="900" fontSize="lg" >Save</Text></Button>
+                    : <Button bg={Colors.main_light} w="32" _pressed={{opacity: 0.8, backgroundColor: 'gray'}} onPress={storeArrayToDevice}><Text color={Colors.white} fontWeight="900" fontSize="lg" >Save</Text></Button>
                 }
             </Box>
             
