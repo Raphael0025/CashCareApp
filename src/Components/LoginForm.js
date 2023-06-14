@@ -32,7 +32,6 @@ const handleLogin = async (username, password, navigation) => {
     try {
       // Retrieve user data from AsyncStorage
         const storedData = await AsyncStorage.getItem('user');
-        const storedOnline = await AsyncStorage.getItem('isOnline');
         if (storedData) { // Parse the stored user data
             const userData = JSON.parse(storedData);
             // Check if the entered username and password match the stored user data

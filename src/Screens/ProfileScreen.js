@@ -78,11 +78,6 @@ export default function ProfileScreen() {
             index: 0,
             routes: [{ name: 'Login' }],
         });
-        try {
-            await AsyncStorage.setItem('isOnline', "false");
-        } catch (error) {
-            console.log('Error storing activity:', error);
-        }
     };
 
     const deleteUser = async () => {

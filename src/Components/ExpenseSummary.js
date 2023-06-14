@@ -44,18 +44,6 @@ function ExpenseSummary({navigation}) {
     setNewDataAdded(false) // Reset the flag after rendering new data
   }, [newDataAdded])
 
-  const handleNewBudget = async (newBudgetData) => {
-    try {
-      // Code to handle the addition of a new budget
-      // ...
-      // Once the new budget is added successfully, Set the flag to true to trigger useEffect
-      await AsyncStorage.setItem('expenseList', JSON.stringify(newBudgetData));
-      setNewDataAdded(true); // Set the flag to true to trigger useEffect
-    } catch (error) {
-      console.log('Error adding new expense:', error);
-    }
-  };
-
   const DataHandler = ({ item }) => (
     <Box w="full" flexDirection="row"
       borderRadius="15" marginBottom="3"

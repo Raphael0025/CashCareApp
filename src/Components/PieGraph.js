@@ -24,35 +24,13 @@ const [budgetData, setBudgetData] = useState([
     { name: 'Week 3', percent: 0, color: Colors.main_dark, legendFontColor: '#7F7F7F', legendFontSize: 15 },
     { name: 'Week 4', percent: 0, color: Colors.main_light, legendFontColor: '#7F7F7F', legendFontSize: 15 },
   ]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const budgetList = await AsyncStorage.getItem('budgetList');
-      if (budgetList) {
-        const budgets = JSON.parse(budgetList);
-        const totalBudget = budgets.reduce((total, budget) => total + budget.amount, 0);
-        const budgetPerWeek = totalBudget / 4;
-        const updatedBudgetData = budgetData.map((budget, index) => ({
-          ...budget,
-          percent: budgetPerWeek,
-          name: `Week ${index + 1}`,
-        }));
-        setBudgetData(updatedBudgetData);
-      }
-    } catch (error) {
-      console.error('Error fetching budget data:', error);
-    }
-  };
+  
 
     return (
         <Box bg={Colors.widgetBG} shadow="7" padding="5" paddingBottom="2" borderRadius="10" w="full" h="xs"  >
             <Text bold color="white" fontSize="16" paddingBottom="2">Budget Overview</Text>
             <Box paddingTop="2" paddingBottom="2" flexDirection="row" borderTopWidth="1" borderTopColor={Colors.main_dark} >
-                <Text color="#ffffff50" bold fontSize="12" w="full" textAlign="center" textTransform="uppercase" >Monthly Budget Pie Chart</Text>
+                <Text color="#ffffff50" bold fontSize="12" w="full" textAlign="center" textTransform="uppercase" >Weekly Budget Pie Chart</Text>
             </Box>
             <PieChart
                 data={budgetData}
@@ -62,11 +40,6 @@ const [budgetData, setBudgetData] = useState([
                 accessor={"percent"}
                 backgroundColor={"transparent"}
             />
-            {/* <Box paddingTop="3" paddingBottom="3" justifyContent="flex-end">
-                <Pressable onPress={() => navigation.navigate('DrawerNav', {screen: 'Stats', params: { screen: 'Pie' },})} _pressed={{opacity: 0.2}}>
-                    <Text textTransform="uppercase" color={Colors.title_color} bold>View More</Text>
-                </Pressable>
-            </Box> */}
         </Box>
     )
 }

@@ -59,14 +59,6 @@ function Form({navigation}) {
         }
     };
 
-    const storeOnline = async () => {
-        try {
-            await AsyncStorage.setItem('isOnline', "false");
-        } catch (error) {
-            console.log('Error storing activity:', error);
-        }
-    }
-
     const handleCancel = () => {
         screen != 0 ? setScreen((currScreen) => currScreen - 1) :  navigation.navigate('Login')
     }

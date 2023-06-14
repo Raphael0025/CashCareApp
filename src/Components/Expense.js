@@ -44,15 +44,6 @@ function Expense() {
     setNewDataAdded(false) // Reset the flag after rendering new data
   }, [newDataAdded]) // Trigger useEffect when newDataAdded changes
 
-  const handleNewBudget = async (newExpenseData) => {
-    try {
-      await AsyncStorage.setItem('expenseList', JSON.stringify(newExpenseData));
-      setNewDataAdded(true); // Set the flag to true to trigger useEffect
-    } catch (error) {
-      console.log('Error adding new expense:', error);
-    }
-  };
-
   const DataHandler = ({ item }) => (
     <Box w="full"
       flexDirection="row" borderRadius="15"
