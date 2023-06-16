@@ -95,7 +95,7 @@ function HomeScreen({navigation}) {
     };
 
     const showBudgetWarning = () => {
-        if (remainingExpenses !==0 && remainingBudget !== 0 && remainingExpenses > remainingBudget - 1000) {
+        if (remainingExpenses !==0 && remainingBudget !== 0 && remainingExpenses > remainingBudget * 0.85) {
             setShowToast(true);
             const timer = setTimeout(() => {
                 setShowToast(false);

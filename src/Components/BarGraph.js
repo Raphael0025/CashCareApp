@@ -28,6 +28,7 @@ function BarGraph() {
         try {
           const expenseList = await AsyncStorage.getItem('expenseList');
           if (expenseList) {
+            const expenseList = JSON.stringify(sampleExpenseData);
             const parsedExpenseList = JSON.parse(expenseList);
             computeWeeklyExpenses(parsedExpenseList);
           } else {
@@ -90,7 +91,14 @@ function BarGraph() {
         const weekOffset = Math.floor((date.getDate() - adjustedFirstDayOfWeek) / 7);
         return weekOffset;
       };
-   
+      const sampleExpenseData = [
+        { date: "2023-06-01", amount: 100 },
+        { date: "2023-06-02", amount: 150 },
+        { date: "2023-06-10", amount: 80 },
+        { date: "2023-06-15", amount: 200 },
+        { date: "2023-06-20", amount: 120 },
+        { date: "2023-06-25", amount: 90 },
+      ];
     const data = {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [{

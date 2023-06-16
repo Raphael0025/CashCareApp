@@ -19,10 +19,10 @@ const chartConfig = {
 };
 
 const [budgetData, setBudgetData] = useState([
-    { name: 'Week 1', percent: 0, color: Colors.main_dark, legendFontColor: '#7F7F7F', legendFontSize: 15 },
-    { name: 'Week 2', percent: 0, color: Colors.main_light, legendFontColor: '#7F7F7F', legendFontSize: 15 },
-    { name: 'Week 3', percent: 0, color: Colors.main_dark, legendFontColor: '#7F7F7F', legendFontSize: 15 },
-    { name: 'Week 4', percent: 0, color: Colors.main_light, legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Week 1', percent: 30, color: Colors.main_dark, legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Week 2', percent: 40, color: Colors.main_light, legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Week 3', percent: 10, color: Colors.main_dark, legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Week 4', percent: 30, color: Colors.main_light, legendFontColor: '#7F7F7F', legendFontSize: 15 },
   ]);
   
   useEffect(() => {
