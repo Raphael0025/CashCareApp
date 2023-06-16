@@ -73,6 +73,21 @@ function CreateExpenseScreen({navigation}) {
     }
 
     try {
+      // Get the total amount from AsyncStorage
+      const storedUserData = await AsyncStorage.getItem('user');
+      const userData = JSON.parse(storedUserData);
+      const totalAmount = parseFloat(userData.amount) || 0;
+      
+      if (totalAmount < expense.amount) {
+        alert('Insufficient amount to cover the expense.');
+        return;
+      }
+      // Deduct the expense amount from the total amount
+      const updatedTotalAmount = totalAmount - expense.amount;
+      //const updatedUser = { ...userData, amount: updatedTotalAmount };
+      // Update the total amount in AsyncStorage
+      await AsyncStorage.setItem('user', JSON.stringify({...userData, amount: updatedTotalAmount }));
+
       const newExpenseKey = generateExpenseKey();
       const storedData = await AsyncStorage.getItem('expenseList');
       if (storedData) {

@@ -55,10 +55,10 @@ function ForgotPasswordScreen({ navigation }) {
       const userData = JSON.parse(storedData);
       const updatedData = { ...userData, password: newPassword };
 
-      await AsyncStorage.setItem('user', JSON.stringify(updatedData));
+      await AsyncStorage.setItem('user', JSON.stringify({...userData, password: newPassword}));
       console.log('New password saved successfully!');
       alert('New password saved successfully!');
-      console.log(updatedData);
+      console.log("Updated Fake: " + updatedData);
 
       setData(updatedData);
       setNewPassword('');

@@ -12,7 +12,7 @@ function BudgetSummary({navigation}) {
         const max = {  maximumFractionDigits: 2   } 
         return Intl.NumberFormat("en-US", max).format(amount)
     }
-
+    
   const getBudgets = async () => {
     try {
       const storedData = await AsyncStorage.getItem('budgetList');

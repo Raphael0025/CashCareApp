@@ -37,7 +37,6 @@ const handleLogin = async (username, password, navigation) => {
             // Check if the entered username and password match the stored user data
             if (username === userData.uName && password === userData.password) {
                 // Login successful
-                alert('Login Successful');
                 navigation.navigate('DrawerNav') 
                 
             } else { // Invalid username or password
